@@ -1,0 +1,18 @@
+<button onclick="logoutUser()">Logout</button>
+
+
+
+<table>
+    {{#each worked}}
+        <tr>
+            <td>{{this.name}}</td>
+            <td>{{this.dob}}</td>
+            <td>
+                <button onClick="editThisUser('{{this.name}}')">Edit</button>
+            </td>
+            <td>
+                <button onClick="deleteUser('{{this.name}}')">Remove</button>
+            </td>
+        </tr>
+    {{/each}}
+</table>

@@ -1,0 +1,37 @@
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  text-align: center;
+}
+
+.header {
+  padding: 10px;
+  height: 100px;
+  text-align: center;
+  background: #1abc9c;
+  color: white;
+  font-size: 20px;
+  margin-bottom: 100px;
+}
+
+.footer {
+  height: 100px;
+  text-align: center;
+  background: #1abc9c;
+  color: white;
+  font-size: 30px;
+  margin-top: 100px;
+}
+
+.register-login-form {
+  text-align: left;
+  margin-left: 100px;
+}
+
+a {
+  color: #00B7FF;
+}
+
+
+table, th, td {
+  border: 1px solid black;
+}

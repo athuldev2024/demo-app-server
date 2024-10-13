@@ -1,0 +1,36 @@
+<form>
+	<p>Username: {{this.data.name}}</p>
+	<p>*** This value cant be changed!!</p>
+	<p>{{this.data.gender}}</p>
+
+	<br /><br />
+
+	<label for='password'>Password:</label>
+	<input type='password' id='password' name='password' />
+
+	<br /><br />
+
+	<label for='confirm'>Confirm password:</label>
+	<input type='password' id='confirm' name='confirm' />
+
+	<br /><br />
+
+	<label for='dob'>Date of birth:</label>
+	<input type='date' id='dob' name='dob' value='{{this.data.dob}}' />
+
+	<br /><br />
+
+	<p>Gender:</p>
+	<div id='gender'>
+		<label><input type='radio' id='male' name='gender' value='male' />
+			Male</label>
+		<label><input type='radio' id='female' name='gender' value='female' />
+			Female</label>
+		<label><input type='radio' id='other' name='gender' value='other' />
+			Other</label>
+	</div>
+
+	<br /><br />
+
+	<input id='edit' type='submit' value='update' />
+</form>

@@ -81,12 +81,12 @@ async function checkIfExistsInDB(mobile) {
 async function storeUserToDB(body) {
   try {
     const userID = nanoid();
-    const hashedPassword = await bcrypt.hash(body.password, saltRounds);
+    const hashed = await bcrypt.hash(body.password, saltRounds);
 
     await UserSchema.create({
       id: userID,
       ...body,
-      hashed: hashedPassword,
+      hashed,
     });
 
     return userID;
@@ -97,15 +97,15 @@ async function storeUserToDB(body) {
 
 async function loginUserDB(mobile, password) {
   try {
-    const { password: hashedPassword, id } = await UserSchema.findOne({
+    const { hashed, id } = await UserSchema.findOne({
       where: {
         mobile,
       },
     });
 
-    if (!hashedPassword) return false;
+    if (!hashed) return false;
 
-    const isMatch = await bcrypt.compare(password, hashedPassword);
+    const isMatch = await bcrypt.compare(password, hashed);
 
     return isMatch ? id : false;
   } catch (err) {
@@ -122,7 +122,7 @@ async function deleteUserDB(userID) {
     });
 
     if (result === 0) {
-      throw createError(STATUS_CODES.userExists, MESSAGES.userExists);
+      throw createError(STATUS_CODES.noResource, MESSAGES.noResource);
     } else {
       return true;
     }
@@ -133,10 +133,10 @@ async function deleteUserDB(userID) {
 
 async function updateUserDB(updatedData, userID) {
   try {
-    const hashedPassword = await bcrypt.hash(updatedData.password, saltRounds);
+    const hashed = await bcrypt.hash(updatedData.password, saltRounds);
 
     const result = await UserSchema.update(
-      { ...updatedData, hashed: hashedPassword },
+      { ...updatedData, hashed },
       {
         where: {
           id: userID,
@@ -145,7 +145,7 @@ async function updateUserDB(updatedData, userID) {
     );
 
     if (result[0] === 0) {
-      throw createError(STATUS_CODES.userExists, MESSAGES.userExists);
+      throw createError(STATUS_CODES.noResource, MESSAGES.noResource);
     }
 
     return true;

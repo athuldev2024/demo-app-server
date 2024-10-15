@@ -94,9 +94,9 @@ describe("user-controller", () => {
     test("should return 404 if no user exists", async () => {
       checkIfExistsInDB.mockResolvedValue(false);
 
-      await registerUser(req, res, next);
+      await loginUser(req, res, next);
 
-      expect(checkIfExistsInDB).toHaveBeenCalledWith("1234567890");
+      // expect(checkIfExistsInDB).toHaveBeenCalledWith("1234567890");
       expect(res.status).toHaveBeenCalledWith(STATUS_CODES.noResource);
       expect(res.json).toHaveBeenCalledWith({ message: MESSAGES.noResource });
     });

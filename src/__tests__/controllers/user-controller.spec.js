@@ -1,4 +1,10 @@
-const { registerUser, loginUser } = require("../../controller/user-controller");
+const {
+  registerUser,
+  loginUser,
+  deleteUser,
+  updateUser,
+  logoutUser,
+} = require("../../controller/user-controller");
 const {
   checkIfExistsInDB,
   storeUserToDB,
@@ -9,7 +15,9 @@ const {
 const STATUS_CODES = require("../../constants/status-codes");
 const MESSAGES = require("../../constants/messages");
 const createError = require("http-errors");
+const { promisify } = require("util");
 
+jest.mock("util");
 jest.mock("../../models/user-model");
 jest.mock("http-errors");
 
@@ -17,7 +25,7 @@ describe("user-controller", () => {
   let req, res, next;
   const error = new Error("Something went wrong");
 
-  beforeAll(() => {
+  beforeEach(() => {
     req = {
       body: {
         name: "John Doe",
@@ -30,12 +38,15 @@ describe("user-controller", () => {
       params: {
         userID: "274162874687126487126",
       },
-      session: {},
+      session: {
+        destroy: jest.fn(),
+      },
     };
 
     res = {
       status: jest.fn().mockReturnThis(),
       json: jest.fn(),
+      clearCookie: jest.fn(),
     };
 
     next = jest.fn();
@@ -96,9 +107,118 @@ describe("user-controller", () => {
 
       await loginUser(req, res, next);
 
-      // expect(checkIfExistsInDB).toHaveBeenCalledWith("1234567890");
+      expect(checkIfExistsInDB).toHaveBeenCalledWith("1234567890");
       expect(res.status).toHaveBeenCalledWith(STATUS_CODES.noResource);
       expect(res.json).toHaveBeenCalledWith({ message: MESSAGES.noResource });
+    });
+
+    test("should return 401 if credentials are wrong", async () => {
+      checkIfExistsInDB.mockResolvedValue(true);
+      loginUserDB.mockResolvedValue(false);
+
+      await loginUser(req, res, next);
+
+      expect(checkIfExistsInDB).toHaveBeenCalledWith("1234567890");
+      expect(res.status).toHaveBeenCalledWith(STATUS_CODES.unAuthenticated);
+      expect(res.json).toHaveBeenCalledWith({
+        message: MESSAGES.unAuthenticated,
+      });
+    });
+
+    test("should return 200 if credentials are correct", async () => {
+      checkIfExistsInDB.mockResolvedValue(true);
+      loginUserDB.mockResolvedValue(true);
+
+      await loginUser(req, res, next);
+
+      expect(checkIfExistsInDB).toHaveBeenCalledWith("1234567890");
+      expect(res.status).toHaveBeenCalledWith(STATUS_CODES.success);
+      expect(res.json).toHaveBeenCalledWith({
+        message: MESSAGES.loginSuccess,
+      });
+    });
+
+    test("should call next with an error if an exception occurs", async () => {
+      checkIfExistsInDB.mockRejectedValue(error);
+
+      await loginUser(req, res, next);
+
+      expect(checkIfExistsInDB).toHaveBeenCalledWith("1234567890");
+      expect(next).toHaveBeenCalledWith(
+        createError(error.statusCode, error.message)
+      );
+    });
+  });
+
+  describe("deleteUser", () => {
+    test("should delete user and return 204", async () => {
+      deleteUserDB.mockResolvedValue(true);
+
+      await deleteUser(req, res, next);
+
+      expect(deleteUserDB).toHaveBeenCalledWith(req.params.userID);
+      expect(res.status).toHaveBeenCalledWith(STATUS_CODES.noContent);
+      expect(res.json).toHaveBeenCalledWith({ message: MESSAGES.deleted });
+    });
+
+    test("should call next with an error if delete fails", async () => {
+      deleteUserDB.mockRejectedValue(error);
+
+      await deleteUser(req, res, next);
+
+      expect(deleteUserDB).toHaveBeenCalledWith(req.params.userID);
+      expect(next).toHaveBeenCalledWith(
+        createError(error.statusCode, error.message)
+      );
+    });
+  });
+
+  describe("updateUser", () => {
+    test("should update user and return 204", async () => {
+      updateUserDB.mockResolvedValue(true);
+
+      await updateUser(req, res, next);
+
+      expect(updateUserDB).toHaveBeenCalledWith(req.body, req.params.userID);
+      expect(res.status).toHaveBeenCalledWith(STATUS_CODES.noContent);
+      expect(res.json).toHaveBeenCalledWith({ message: MESSAGES.updated });
+    });
+
+    test("should call next with an error if update fails", async () => {
+      updateUserDB.mockRejectedValue(error);
+
+      await updateUser(req, res, next);
+
+      expect(updateUserDB).toHaveBeenCalledWith(req.body, req.params.userID);
+      expect(next).toHaveBeenCalledWith(
+        createError(error.statusCode, error.message)
+      );
+    });
+  });
+
+  describe("logoutUser", () => {
+    test("should successfully logout user and return 200", async () => {
+      const destroySessionMock = jest.fn().mockResolvedValue();
+      promisify.mockReturnValue(destroySessionMock);
+
+      await logoutUser(req, res, next);
+
+      expect(res.clearCookie).toHaveBeenCalledWith("connect.sid");
+      expect(res.status).toHaveBeenCalledWith(STATUS_CODES.success);
+      expect(res.json).toHaveBeenCalledWith({
+        message: MESSAGES.logoutSuccess,
+      });
+    });
+
+    test("should call next with an error if session destruction fails", async () => {
+      const destroySessionMock = jest.fn().mockRejectedValue(error);
+      promisify.mockReturnValue(destroySessionMock);
+
+      await logoutUser(req, res, next);
+
+      expect(next).toHaveBeenCalledWith(
+        createError(error.statusCode, error.message)
+      );
     });
   });
 });

@@ -4,6 +4,8 @@ const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const hbs = require("hbs");
 const FileStore = require("session-file-store")(session);
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocs = require("./swagger");
 
 const indexRouter = require("./src/routes/index");
 const usersRouter = require("./src/routes/user-routes");
@@ -39,6 +41,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "handlebars/public")));
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);

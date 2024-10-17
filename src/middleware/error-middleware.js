@@ -1,5 +1,4 @@
 const { validationResult } = require("express-validator");
-const createError = require("http-errors");
 
 const STATUS_CODES = require("../constants/status-codes");
 

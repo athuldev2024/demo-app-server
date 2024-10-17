@@ -72,9 +72,8 @@ async function checkIfExistsInDB(mobile) {
     });
 
     return user ? user : false;
-  } catch (error) {
-    console.log("Errrooroor: ", error);
-    throw new Error("Error while checking for user in DB");
+  } catch (err) {
+    throw createError(err.statusCode, err.message);
   }
 }
 
@@ -90,8 +89,8 @@ async function storeUserToDB(body) {
     });
 
     return userID;
-  } catch (error) {
-    throw new Error("Error while storing user to DB");
+  } catch (err) {
+    throw createError(err.statusCode, err.message);
   }
 }
 
@@ -109,7 +108,7 @@ async function loginUserDB(mobile, password) {
 
     return isMatch ? id : false;
   } catch (err) {
-    throw new Error("Error while logging in user");
+    throw createError(err.statusCode, err.message);
   }
 }
 

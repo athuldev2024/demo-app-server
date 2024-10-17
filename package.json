@@ -5,7 +5,11 @@
   "scripts": {
     "start": "nodemon ./bin/www",
     "test": "jest",
-    "coverage": "jest --coverage"
+    "coverage": "jest --coverage",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "prettier:check": "prettier --check ."
   },
   "dependencies": {
     "bcrypt": "^5.1.1",

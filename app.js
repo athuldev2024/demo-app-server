@@ -16,7 +16,9 @@ var app = express();
 
 hbs.registerPartials(
   path.join(__dirname, "handlebars/views/partials"),
-  (err) => {}
+  (err) => {
+    console.log("Error : ", err);
+  }
 );
 app.set("views", path.join(__dirname, "handlebars/views"));
 app.set("view engine", "hbs");

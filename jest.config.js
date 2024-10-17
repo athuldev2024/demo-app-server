@@ -7,7 +7,5 @@ module.exports = {
   ],
   coverageReporters: [
     "text", // Show text output in the terminal
-    "lcov", // Generate a single lcov.info file
   ],
-  coverageDirectory: "./coverage", // Save coverage reports here
 };

@@ -4,7 +4,7 @@ const {
   deleteUser,
   updateUser,
   logoutUser,
-} = require("../../controller/user-controller");
+} = require("../../controllers/user-controller");
 const {
   checkIfExistsInDB,
   storeUserToDB,

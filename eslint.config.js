@@ -27,12 +27,6 @@ module.exports = [
       "no-console": "off", // Allow the use of console logs in development
     },
     // Ignore these directories and files from linting
-    ignores: [
-      "node_modules/**",
-      "dist/**",
-      "bin/**",
-      "handlebars/**",
-      ".vscode/**",
-    ],
+    ignores: ["node_modules/**", "dist/**", "bin/**", "handlebars/**"],
   },
 ];

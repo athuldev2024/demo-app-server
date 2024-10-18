@@ -86,7 +86,13 @@ const updateValidationSchema = checkSchema({
   mobile,
 });
 
+const loginValidationSchema = checkSchema({
+  mobile,
+  password,
+});
+
 module.exports = {
   registerValidationSchema,
   updateValidationSchema,
+  loginValidationSchema,
 };

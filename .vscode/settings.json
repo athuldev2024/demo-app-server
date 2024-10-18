@@ -7,7 +7,7 @@
 
   // Enable ESLint auto-fix on save
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": "explicit"
   },
 
   // Validate JavaScript, TypeScript, and JSX with ESLint

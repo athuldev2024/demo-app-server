@@ -49,8 +49,8 @@ router.get(
         name,
         mobile,
         email,
-        gender,
         password,
+        gender,
       };
 
       return res.render("edit", { title: "update user", userData });

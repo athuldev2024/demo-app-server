@@ -22,10 +22,6 @@ document.getElementById("logoutUser") &&
 
 document.getElementById("update") &&
   document.getElementById("update").addEventListener("click", editUser);
-document.getElementById("goToViewPage") &&
-  document
-    .getElementById("goToViewPage")
-    .addEventListener("click", goToViewPage);
 
 function signUpMove() {
   window.location.href = `${NAV_URL}/register`;
@@ -180,7 +176,8 @@ async function editUser(event) {
       });
 
       if (res.status === 204) {
-        alert("User has been updated!!");
+        const userID = localStorage.getItem("userID");
+        window.location.href = `${NAV_URL}/view/${userID}`;
       } else {
         throw Error("Error occured while registering!!");
       }
@@ -235,10 +232,4 @@ async function deleteUser() {
 function gotoEditUserPage() {
   const userID = localStorage.getItem("userID");
   window.location.href = `${NAV_URL}/edit/${userID}`;
-}
-function goToViewPage() {
-  console.log("I have  reached here at last!!!");
-  const userID = localStorage.getItem("userID");
-  console.log("NAV: ", `${NAV_URL}/view/${userID}`);
-  window.location.href = `${NAV_URL}/view/${userID}`;
 }

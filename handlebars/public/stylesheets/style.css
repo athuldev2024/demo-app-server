@@ -1,37 +1,95 @@
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
 body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #d5d3e0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.signup-container {
+  background-color: #e6f7ff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 40px;
   text-align: center;
 }
 
-.header {
+.signup-header {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.signup-input {
+  width: 100%;
   padding: 10px;
-  height: 100px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.terms {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  margin: 10px 0;
+}
+
+.terms input {
+  margin-right: 5px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn {
+  background-color: #d8f5ff;
+  border: 1px solid #aaa;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #c0e8ff;
+}
+
+.container {
+  min-width: 600px;
+  margin: 50px auto;
+  background: #fff;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.profile-info {
+  margin-bottom: 20px;
   text-align: center;
-  background: #1abc9c;
-  color: white;
-  font-size: 20px;
-  margin-bottom: 100px;
 }
-
-.footer {
-  height: 100px;
-  text-align: center;
-  background: #1abc9c;
-  color: white;
-  font-size: 30px;
-  margin-top: 100px;
+.profile-info div {
+  margin: 10px 0;
 }
-
-.register-login-form {
-  text-align: left;
-  margin-left: 100px;
-}
-
-a {
-  color: #00B7FF;
-}
-
-
-table, th, td {
-  border: 1px solid black;
+.profile-info div span {
+  font-weight: bold;
 }

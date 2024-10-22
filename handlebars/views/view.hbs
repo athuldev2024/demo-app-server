@@ -1,18 +1,14 @@
-<button onclick="logoutUser()">Logout</button>
-
-
-
-<table>
-    {{#each worked}}
-        <tr>
-            <td>{{this.name}}</td>
-            <td>{{this.dob}}</td>
-            <td>
-                <button onClick="editThisUser('{{this.name}}')">Edit</button>
-            </td>
-            <td>
-                <button onClick="deleteUser('{{this.name}}')">Remove</button>
-            </td>
-        </tr>
-    {{/each}}
-</table>
+<div class="container">
+  <div class="header">
+    <button id="deleteUser" class="btn">Delete</button>
+    <button id="gotoEditUserPage" class="btn">Edit Page</button>
+    <button id="logoutUser" class="btn">Logout</button>
+  </div>
+  <div class="profile-info">
+    <div><span>ID: </span>{{userData.id}}</div>
+    <div><span>Name: </span>{{userData.name}}</div>
+    <div><span>Email: </span>{{userData.email}}</div>
+    <div><span>Mobile: </span>{{userData.mobile}}</div>
+    <div><span>gender: </span>{{userData.gender}}</div>
+  </div>
+</div>

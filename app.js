@@ -39,7 +39,7 @@ app.use(express.static(path.join(__dirname, "handlebars/public")));
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
-app.use("/", indexRouter);
+app.use("/hbs", indexRouter);
 app.use("/users", usersRouter);
 
 // Setup for database

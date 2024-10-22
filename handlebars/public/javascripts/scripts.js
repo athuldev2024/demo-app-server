@@ -1,171 +1,244 @@
-const URL = 'http://localhost:3000/users';
+const URL = "http://localhost:3000/users";
+const NAV_URL = "http://localhost:3000/hbs";
 
-document.getElementById('register') &&
-	document.getElementById('register').addEventListener('click', registerUser);
-document.getElementById('login') &&
-	document.getElementById('login').addEventListener('click', loginUser);
-document.getElementById('edit') &&
-	document.getElementById('edit').addEventListener('click', editUser);
+document.getElementById("register") &&
+  document.getElementById("register").addEventListener("click", registerUser);
+document.getElementById("signInMove") &&
+  document.getElementById("signInMove").addEventListener("click", signInMove);
 
-async function registerUser(event) {
-	try {
-		event.preventDefault();
-		const name = document.getElementById('name').value;
-		const dob = document.getElementById('dob').value;
-		const password = document.getElementById('password').value;
-		const confirm = document.getElementById('confirm').value;
-		const genderArr = document.getElementsByName('gender');
-		let gender;
-		for (let inc = 0; inc < genderArr.length; inc++) {
-			if (genderArr[inc].checked) {
-				gender = genderArr[inc].value;
-			}
-		}
+document.getElementById("login") &&
+  document.getElementById("login").addEventListener("click", loginUser);
+document.getElementById("signUpMove") &&
+  document.getElementById("signUpMove").addEventListener("click", signUpMove);
 
-		if (!name || !dob || !password || !confirm || !gender) {
-			alert('Enter all details before registering!!');
-			return;
-		} else {
-			if (password !== confirm) {
-				alert('Password and confirm password dont match!!');
-			}
+document.getElementById("deleteUser") &&
+  document.getElementById("deleteUser").addEventListener("click", deleteUser);
+document.getElementById("gotoEditUserPage") &&
+  document
+    .getElementById("gotoEditUserPage")
+    .addEventListener("click", gotoEditUserPage);
+document.getElementById("logoutUser") &&
+  document.getElementById("logoutUser").addEventListener("click", logoutUser);
 
-			const res = await fetch(`${URL}/register`, {
-				headers: {
-					Accept: 'application/json',
-					'Content-Type': 'application/json',
-				},
-				method: 'POST',
-				body: JSON.stringify({ name, password, confirm, dob, gender }),
-			});
+document.getElementById("update") &&
+  document.getElementById("update").addEventListener("click", editUser);
+document.getElementById("goToViewPage") &&
+  document
+    .getElementById("goToViewPage")
+    .addEventListener("click", goToViewPage);
 
-			if (res.status === 201) {
-				window.location.href = `http://localhost:3000/view`;
-			} else {
-				throw Error('Error occured while registering!!');
-			}
-		}
-	} catch (error) {
-		alert(error?.message);
-	}
+function signUpMove() {
+  window.location.href = `${NAV_URL}/register`;
 }
-
 async function loginUser(event) {
-	try {
-		event.preventDefault();
-		const name = document.getElementById('name').value;
-		const password = document.getElementById('password').value;
+  try {
+    event.preventDefault();
+    const mobile = document.getElementById("mobile").value;
+    const password = document.getElementById("password").value;
 
-		if (!name || !password) {
-			alert('Enter all details before logging in!!');
-			return;
-		} else {
-			const res = await fetch(`${URL}/login`, {
-				headers: {
-					Accept: 'application/json',
-					'Content-Type': 'application/json',
-				},
-				method: 'POST',
-				body: JSON.stringify({ name, password }),
-			});
+    if (!mobile || !password) {
+      alert("Enter all details before logging in!!");
+      return;
+    } else {
+      const res = await fetch(`${URL}/login`, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify({ mobile, password }),
+      });
 
-			if (res.status === 200) {
-				window.location.href = `http://localhost:3000/view`;
-			} else {
-				throw Error('Error while logging in!!');
-			}
-		}
-	} catch (error) {
-		alert(error?.message);
-	}
+      if (res.status === 200) {
+        console.log("I have reacjhed her!!");
+        console.log(res);
+        const resJson = await res.json();
+        console.log("resJson.userID=> ", resJson.userID);
+        localStorage.setItem("userID", resJson.userID);
+        window.location.href = `${NAV_URL}/view/${resJson.userID}`;
+      } else if (res.status === 404) {
+        alert("Wrong credentials!!");
+      } else {
+        throw Error("Error while logging in!!");
+      }
+    }
+  } catch (error) {
+    alert(error?.message);
+  }
 }
 
-function editThisUser(name) {
-	window.location.href = `http://localhost:3000/edit/${name}`;
+function signInMove() {
+  window.location.href = `${NAV_URL}/login`;
 }
+async function registerUser(event) {
+  try {
+    event.preventDefault();
+    const name = document.getElementById("name").value;
+    const dob = document.getElementById("dob").value;
+    const password = document.getElementById("password").value;
+    const confirm = document.getElementById("confirm").value;
+    const mobile = document.getElementById("mobile").value;
+    const email = document.getElementById("email").value;
+    const genderArr = document.getElementsByName("gender");
+    let gender;
+    for (let inc = 0; inc < genderArr.length; inc++) {
+      if (genderArr[inc].checked) {
+        gender = genderArr[inc].value;
+      }
+    }
 
-async function deleteUser(name) {
-	try {
-		const res = await fetch(`${URL}/delete/${name}`, {
-			headers: {
-				Accept: 'application/json',
-				'Content-Type': 'application/json',
-			},
-			method: 'DELETE',
-		});
+    if (
+      !name ||
+      !dob ||
+      !password ||
+      !confirm ||
+      !gender ||
+      !mobile ||
+      !email
+    ) {
+      alert("Enter all details before registering!!");
+      return;
+    } else {
+      if (password !== confirm) {
+        alert("Password and confirm password dont match!!");
+        return;
+      }
 
-		if (res.status === 204) {
-			location.reload();
-		}
-	} catch (error) {
-		alert(error?.message);
-	}
+      const res = await fetch(`${URL}/register`, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify({ name, password, mobile, email, dob, gender }),
+      });
+
+      if (res.status === 201) {
+        const resJson = await res.json();
+        localStorage.setItem("userID", resJson.userID);
+        window.location.href = `${NAV_URL}/view/${resJson.userID}`;
+      } else if (res.status === 409) {
+        alert("User already exists!!");
+      } else {
+        throw Error("Error occured while registering!!");
+      }
+    }
+  } catch (error) {
+    alert(error?.message);
+  }
 }
 
 async function editUser(event) {
-	try {
-		console.log('i have rwached here!!!');
-		event.preventDefault();
-		const name = document.URL.split('/')[document.URL.split('/').length - 1];
-		const dob = document.getElementById('dob').value;
-		const password = document.getElementById('password').value;
-		const confirm = document.getElementById('confirm').value;
-		const genderArr = document.getElementsByName('gender');
-		let gender;
-		for (let inc = 0; inc < genderArr.length; inc++) {
-			if (genderArr[inc].checked) {
-				gender = genderArr[inc].value;
-			}
-		}
+  try {
+    event.preventDefault();
+    const name = document.getElementById("name").value;
+    const dob = document.getElementById("dob").value;
+    const password = document.getElementById("password").value;
+    const confirm = document.getElementById("confirm").value;
+    const mobile = document.getElementById("mobile").value;
+    const email = document.getElementById("email").value;
+    const genderArr = document.getElementsByName("gender");
+    let gender;
+    for (let inc = 0; inc < genderArr.length; inc++) {
+      if (genderArr[inc].checked) {
+        gender = genderArr[inc].value;
+      }
+    }
 
-		if (!dob || !password || !confirm || !gender) {
-			alert('Enter all details before registering!!');
-			return;
-		} else {
-			console.log(password);
-			console.log(confirm);
-			console.log(dob);
+    if (
+      !dob ||
+      !password ||
+      !confirm ||
+      !gender ||
+      !gender ||
+      !mobile ||
+      !email
+    ) {
+      alert("Enter all details before registering!!");
+      return;
+    } else {
+      if (password !== confirm) {
+        alert("Password and confirm password dont match!!");
+        return;
+      }
 
-			if (password !== confirm) {
-				alert('Password and confirm password dont match!!');
-			}
+      const userID = localStorage.getItem("userID");
+      const res = await fetch(`${URL}/update/${userID}`, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        method: "PATCH",
+        body: JSON.stringify({
+          name,
+          password,
+          dob,
+          gender,
+          mobile,
+          email,
+        }),
+      });
 
-			const res = await fetch(`${URL}/update`, {
-				headers: {
-					Accept: 'application/json',
-					'Content-Type': 'application/json',
-				},
-				method: 'PATCH',
-				body: JSON.stringify({ name, password, confirm, dob, gender }),
-			});
-
-			if (res.status === 200) {
-				alert('User has been registered!!');
-			} else {
-				throw Error('Error occured while registering!!');
-			}
-		}
-	} catch (error) {
-		alert(error?.message);
-	}
+      if (res.status === 204) {
+        alert("User has been updated!!");
+      } else {
+        throw Error("Error occured while registering!!");
+      }
+    }
+  } catch (error) {
+    alert(error?.message);
+  }
 }
 
-const logoutUser = async () => {
-	try {
-		const res = await fetch(`${URL}/logout`, {
-			headers: {
-				Accept: 'application/json',
-				'Content-Type': 'application/json',
-			},
-			method: 'GET',
-		});
+async function logoutUser() {
+  try {
+    const res = await fetch(`${URL}/logout`, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      method: "GET",
+    });
 
-		if (res.status === 200) {
-			window.location.href = `http://localhost:3000/login`;
-		} else {
-			throw Error('Error occured while registering!!');
-		}
-	} catch (error) {
-		alert(error?.message);
-	}
-};
+    if (res.status === 200) {
+      localStorage.clear();
+      window.location.href = `${NAV_URL}/login`;
+    } else {
+      throw Error("Error occured while registering!!");
+    }
+  } catch (error) {
+    alert(error?.message);
+  }
+}
+
+async function deleteUser() {
+  try {
+    const userID = localStorage.getItem("userID");
+    const res = await fetch(`${URL}/delete/${userID}`, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      method: "DELETE",
+    });
+
+    if (res.status === 204) {
+      localStorage.clear();
+      window.location.href = `${NAV_URL}/login`;
+    }
+  } catch (error) {
+    alert(error?.message);
+  }
+}
+
+// Navigation to other pages
+function gotoEditUserPage() {
+  const userID = localStorage.getItem("userID");
+  window.location.href = `${NAV_URL}/edit/${userID}`;
+}
+function goToViewPage() {
+  console.log("I have  reached here at last!!!");
+  const userID = localStorage.getItem("userID");
+  console.log("NAV: ", `${NAV_URL}/view/${userID}`);
+  window.location.href = `${NAV_URL}/view/${userID}`;
+}

@@ -149,17 +149,18 @@ async function updateUserDB(updatedData, userID) {
 
 async function retriveUserDB(userID) {
   try {
-    const { id, name, mobile, email, dob, gender } = await UserSchema.findOne({
-      where: {
-        id: userID,
-      },
-    });
+    const { id, name, mobile, email, dob, gender, password } =
+      await UserSchema.findOne({
+        where: {
+          id: userID,
+        },
+      });
 
     if (!id) {
       throw createError(STATUS_CODES.noResource, MESSAGES.noResource);
     }
 
-    return { id, name, mobile, email, dob, gender };
+    return { id, name, mobile, email, dob, gender, password };
   } catch (err) {
     throw createError(err.statusCode, err.message);
   }

@@ -1,36 +1,87 @@
-<form>
-	<p>Username: {{this.data.name}}</p>
-	<p>*** This value cant be changed!!</p>
-	<p>{{this.data.gender}}</p>
+<div class="signup-container">
+  <form>
+    <div class="signup-header">Update User</div>
+    <label for="name">Name:</label>
+    <input
+      type="text"
+      id="name"
+      name="name"
+      class="signup-input"
+      placeholder="Enter name"
+      value="{{userData.name}}"
+      required
+    />
 
-	<br /><br />
+    <label for="password">Password:</label>
+    <input
+      type="password"
+      id="password"
+      name="password"
+      class="signup-input"
+      placeholder="Enter password"
+      value="{{userData.password}}"
+      required
+    />
 
-	<label for='password'>Password:</label>
-	<input type='password' id='password' name='password' />
+    <label for="confirm">Confirm password:</label>
+    <input
+      type="password"
+      id="confirm"
+      name="confirm"
+      class="signup-input"
+      placeholder="Confirm password"
+      value="{{userData.password}}"
+      required
+    />
 
-	<br /><br />
+    <label for="dob">Date of birth:</label>
+    <input
+      type="date"
+      id="dob"
+      name="dob"
+      class="signup-input"
+      placeholder="Enter date"
+      value="{{userData.dob}}"
+      required
+    />
 
-	<label for='confirm'>Confirm password:</label>
-	<input type='password' id='confirm' name='confirm' />
+    <label for="dob">Email:</label>
+    <input
+      type="text"
+      id="email"
+      name="email"
+      class="signup-input"
+      placeholder="Enter email"
+      value="{{userData.email}}"
+      required
+    />
 
-	<br /><br />
+    <p>Gender:</p>
+    <div id="gender">
+      <label><input type="radio" id="male" name="gender" value="M" />
+        Male</label>
+      <label><input type="radio" id="female" name="gender" value="F" />
+        Female</label>
+      <label><input type="radio" id="other" name="gender" value="O" />
+        Other</label>
+    </div>
+    <br />
 
-	<label for='dob'>Date of birth:</label>
-	<input type='date' id='dob' name='dob' value='{{this.data.dob}}' />
+    <label for="mobile">Mobile:</label>
+    <input
+      type="number"
+      min="0"
+      id="mobile"
+      name="mobile"
+      class="signup-input"
+      placeholder="Enter mobile"
+      value="{{userData.mobile}}"
+      required
+    />
 
-	<br /><br />
-
-	<p>Gender:</p>
-	<div id='gender'>
-		<label><input type='radio' id='male' name='gender' value='male' />
-			Male</label>
-		<label><input type='radio' id='female' name='gender' value='female' />
-			Female</label>
-		<label><input type='radio' id='other' name='gender' value='other' />
-			Other</label>
-	</div>
-
-	<br /><br />
-
-	<input id='edit' type='submit' value='update' />
-</form>
+    <div class="buttons">
+      <button id="update" class="btn">Update</button>
+      <button id="goToViewPage" class="btn">Go back view</button>
+    </div>
+  </form>
+</div>

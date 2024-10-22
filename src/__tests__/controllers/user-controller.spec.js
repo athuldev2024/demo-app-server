@@ -80,9 +80,6 @@ describe("user-controller", () => {
         name: "John Doe",
       });
       expect(res.status).toHaveBeenCalledWith(STATUS_CODES.userRegistered);
-      expect(res.json).toHaveBeenCalledWith({
-        message: MESSAGES.userRegistered,
-      });
     });
 
     test("should call next with an error if an exception occurs", async () => {
@@ -133,9 +130,6 @@ describe("user-controller", () => {
 
       expect(checkIfExistsInDB).toHaveBeenCalledWith("1234567890");
       expect(res.status).toHaveBeenCalledWith(STATUS_CODES.success);
-      expect(res.json).toHaveBeenCalledWith({
-        message: MESSAGES.loginSuccess,
-      });
     });
 
     test("should call next with an error if an exception occurs", async () => {

@@ -2,7 +2,6 @@ const express = require("express");
 const path = require("path");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
-const hbs = require("hbs");
 const FileStore = require("session-file-store")(session);
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocs = require("./swagger");
@@ -10,16 +9,10 @@ const swaggerDocs = require("./swagger");
 const indexRouter = require("./src/routes/index");
 const usersRouter = require("./src/routes/user-routes");
 
-const { setupDB } = require("./src/models/user-model");
+const { setupDB } = require("./src/models");
 
 var app = express();
 
-hbs.registerPartials(
-  path.join(__dirname, "handlebars/views/partials"),
-  (err) => {
-    console.log("Error : ", err);
-  }
-);
 app.set("views", path.join(__dirname, "handlebars/views"));
 app.set("view engine", "hbs");
 

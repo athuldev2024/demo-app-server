@@ -1,8 +1,8 @@
-const { Sequelize, DataTypes } = require("sequelize");
+const { DataTypes } = require("sequelize");
 const { customAlphabet } = require("nanoid");
-const path = require("path");
 const bcrypt = require("bcrypt");
 const createError = require("http-errors");
+const { sequelize } = require("./index");
 
 const nanoid = customAlphabet("1234567890", 18);
 const saltRounds = 10;
@@ -10,17 +10,11 @@ const saltRounds = 10;
 const STATUS_CODES = require("../constants/status-codes");
 const MESSAGES = require("../constants/messages");
 
-const sequelize = new Sequelize({
-  dialect: "sqlite",
-  storage: path.join(__dirname, "../database", "users.sqlite3"),
-});
-
 const UserSchema = sequelize.define(
   "User",
   {
     id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: false,
+      type: DataTypes.STRING,
       primaryKey: true,
     },
     name: {
@@ -96,7 +90,7 @@ async function storeUserToDB(body) {
 
 async function loginUserDB(mobile, password) {
   try {
-    const { hashed, id } = await UserSchema.findOne({
+    const { id, hashed } = await UserSchema.findOne({
       where: {
         mobile,
       },
@@ -153,15 +147,21 @@ async function updateUserDB(updatedData, userID) {
   }
 }
 
-async function setupDB() {
+async function retriveUserDB(userID) {
   try {
-    await sequelize.authenticate();
-    console.log("Connected to DB!!");
+    const { id, name, mobile, email, dob, gender } = await UserSchema.findOne({
+      where: {
+        id: userID,
+      },
+    });
 
-    await sequelize.sync({ force: false });
-    console.log("Database & tables created!");
+    if (!id) {
+      throw createError(STATUS_CODES.noResource, MESSAGES.noResource);
+    }
+
+    return { id, name, mobile, email, dob, gender };
   } catch (err) {
-    console.error("Unable to connect to the database:", err);
+    throw createError(err.statusCode, err.message);
   }
 }
 
@@ -171,5 +171,5 @@ module.exports = {
   loginUserDB,
   deleteUserDB,
   updateUserDB,
-  setupDB,
+  retriveUserDB,
 };

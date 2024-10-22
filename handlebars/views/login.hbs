@@ -1,15 +1,29 @@
-<form></form>
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name">
-    
-    <br><br>
+<div class="signup-container">
+  <form>
+    <div class="signup-header">Login</div>
+    <label for="mobile">Mobile:</label>
+    <input
+      type="number"
+      min="0"
+      id="mobile"
+      name="mobile"
+      class="signup-input"
+      placeholder="Enter mobile"
+      required
+    />
 
     <label for="password">Password:</label>
-    <input type="password" id="password" name="password">
-    
-<br>
-    
-    <br>
+    <input
+      type="password"
+      id="password"
+      name="password"
+      class="signup-input"
+      placeholder="Enter password"
+    />
 
-    <input id="login" type="submit" value="login">
-</form>
+    <div class="buttons">
+      <button id="login" class="btn">Login</button>
+      <button id="signUpMove" class="btn">Sign up</button>
+    </div>
+  </form>
+</div>

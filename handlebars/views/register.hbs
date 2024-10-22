@@ -1,36 +1,80 @@
-<form class='register-login-form'>
-	<label for='name'>Name:</label>
-	<input type='text' id='name' name='name' />
+<div class="signup-container">
+  <form>
+    <label for="name">Name:</label>
+    <input
+      type="text"
+      id="name"
+      name="name"
+      class="signup-input"
+      placeholder="Enter name"
+      required
+    />
 
-	<br /><br />
+    <label for="password">Password:</label>
+    <input
+      type="password"
+      id="password"
+      name="password"
+      class="signup-input"
+      placeholder="Enter password"
+      required
+    />
 
-	<label for='password'>Password:</label>
-	<input type='password' id='password' name='password' />
+    <label for="confirm">Confirm password:</label>
+    <input
+      type="password"
+      id="confirm"
+      name="confirm"
+      class="signup-input"
+      placeholder="Confirm password"
+      required
+    />
 
-	<br /><br />
+    <label for="dob">Date of birth:</label>
+    <input
+      type="date"
+      id="dob"
+      name="dob"
+      class="signup-input"
+      placeholder="Enter date"
+      required
+    />
 
-	<label for='confirm'>Confirm password:</label>
-	<input type='password' id='confirm' name='confirm' />
+    <label for="dob">Email:</label>
+    <input
+      type="text"
+      id="email"
+      name="email"
+      class="signup-input"
+      placeholder="Enter email"
+      required
+    />
 
-	<br /><br />
+    <p>Gender:</p>
+    <div id="gender">
+      <label><input type="radio" id="male" name="gender" value="M" />
+        Male</label>
+      <label><input type="radio" id="female" name="gender" value="F" />
+        Female</label>
+      <label><input type="radio" id="other" name="gender" value="O" />
+        Other</label>
+    </div>
+    <br />
 
-	<label for='dob'>Date of birth:</label>
-	<input type='date' id='dob' name='dob' />
+    <label for="mobile">Mobile:</label>
+    <input
+      type="number"
+      min="0"
+      id="mobile"
+      name="mobile"
+      class="signup-input"
+      placeholder="Enter mobile"
+      required
+    />
 
-	<br /><br />
-
-	<p>Gender:</p>
-	<div id='gender'>
-		<label><input type='radio' id='male' name='gender' value='male' />
-			Male</label>
-		<label><input type='radio' id='female' name='gender' value='female' />
-			Female</label>
-		<label><input type='radio' id='other' name='gender' value='other' />
-			Other</label>
-	</div>
-
-	<br />
-	<br />
-
-	<input id='register' type='submit' value='register' />
-</form>
+    <div class="buttons">
+      <button id="register" class="btn">register</button>
+      <button id="signInMove" class="btn">Sign in</button>
+    </div>
+  </form>
+</div>

@@ -25,7 +25,7 @@ const registerUser = async (req, res, next) => {
 
     return res
       .status(STATUS_CODES.userRegistered)
-      .json({ message: MESSAGES.userRegistered });
+      .json({ message: MESSAGES.userRegistered, userID });
   } catch (error) {
     next(createError(error.statusCode, error.message));
   }
@@ -51,7 +51,7 @@ const loginUser = async (req, res, next) => {
 
     return res
       .status(STATUS_CODES.success)
-      .json({ message: MESSAGES.loginSuccess });
+      .json({ message: MESSAGES.loginSuccess, userID });
   } catch (error) {
     next(createError(error.statusCode, error.message));
   }

@@ -4,6 +4,7 @@ const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const FileStore = require("session-file-store")(session);
 const swaggerUi = require("swagger-ui-express");
+const hbs = require("hbs");
 const swaggerDocs = require("./swagger");
 
 const indexRouter = require("./src/routes/index");
@@ -15,6 +16,10 @@ var app = express();
 
 app.set("views", path.join(__dirname, "handlebars/views"));
 app.set("view engine", "hbs");
+// Register the `eq` helper
+hbs.registerHelper("eq", function (a, b) {
+  return a === b;
+});
 
 app.use(
   session({

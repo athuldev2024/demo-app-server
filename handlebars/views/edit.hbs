@@ -56,14 +56,12 @@
       required
     />
 
-    <p>Gender: {{userData.gender}}</p>
-
     <div id="gender">
-      <label><input type="radio" id="male" name="gender" value="M" />
+      <label><input type="radio" id="male" name="gender" value="M" {{#if (eq userData.gender 'M')}}checked{{/if}} />
         Male</label>
-      <label><input type="radio" id="female" name="gender" value="F" />
+      <label><input type="radio" id="female" name="gender" value="F" {{#if (eq userData.gender 'F')}}checked{{/if}} />
         Female</label>
-      <label><input type="radio" id="other" name="gender" value="O" />
+      <label><input type="radio" id="other" name="gender" value="O" {{#if (eq userData.gender 'O')}}checked{{/if}} />
         Other</label>
     </div>
     <br />

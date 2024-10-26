@@ -1,7 +1,6 @@
 # demo-app-server
 
 A simple demo REST API server for educational purpose.
-Simple HBS handlebar is also given as an add on.
 
 ## API documentation
 
@@ -44,3 +43,7 @@ npm run test
    ```bash
    npm run start
    ```
+
+## See in browser (handlebar)
+
+http://localhost:3000/hbs/login

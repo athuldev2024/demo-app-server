@@ -23,6 +23,11 @@ document.getElementById("logoutUser") &&
 document.getElementById("update") &&
   document.getElementById("update").addEventListener("click", editUser);
 
+document.getElementById("goToLoginPage") &&
+  document
+    .getElementById("goToLoginPage")
+    .addEventListener("click", goToLoginPage);
+
 function signUpMove() {
   window.location.href = `${NAV_URL}/register`;
 }
@@ -232,4 +237,8 @@ async function deleteUser() {
 function gotoEditUserPage() {
   const userID = localStorage.getItem("userID");
   window.location.href = `${NAV_URL}/edit/${userID}`;
+}
+
+function goToLoginPage() {
+  window.location.href = `${NAV_URL}/login`;
 }

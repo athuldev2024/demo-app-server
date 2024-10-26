@@ -161,3 +161,15 @@ body {
 .profile-info .profile-detail .value {
   color: #333;
 }
+
+h2 {
+  font-size: 24px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+p {
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 30px;
+}

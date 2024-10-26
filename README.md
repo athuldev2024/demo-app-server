@@ -5,7 +5,7 @@ Simple HBS handlebar is also given as an add on.
 
 ## API documentation
 
-make sure to run the node application before hand.
+Make sure to run the node application before hand.
 
 http://localhost:3000/api-docs/
 

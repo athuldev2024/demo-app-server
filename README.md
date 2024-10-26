@@ -11,12 +11,6 @@ http://localhost:3000/api-docs/
 
 ## Installation
 
-Installing (non-docker)
-
-```bash
-npm install
-```
-
 ### Prerequisites
 
 - [Node.js](https://nodejs.org/) (version 20.18.0)
@@ -40,7 +34,13 @@ npm run test
    cd demo-app-server
    ```
 
-2. Start the server
+2. Install node_modules
+
+   ```bash
+   npm install
+   ```
+
+3. Start the server
 
    ```bash
    npm run start

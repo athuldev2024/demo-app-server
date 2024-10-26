@@ -13,7 +13,7 @@ http://localhost:3000/api-docs/
 ### Prerequisites
 
 - [Node.js](https://nodejs.org/) (version 20.18.0)
-- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+- [npm](https://www.npmjs.com/) (version 10.8.2)
 
 ### Check if unit tests passing
 
@@ -47,3 +47,5 @@ npm run test
 ## See in browser (handlebar)
 
 http://localhost:3000/hbs/login
+
+![alt text](public/images/login-page.png)

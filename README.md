@@ -25,8 +25,6 @@ Run unit tests, coverage is also shown in terminal.
 npm run test
 ```
 
-![alt text](image.png)
-
 ### Steps for starting the node server without docker
 
 1. Clone the repository:

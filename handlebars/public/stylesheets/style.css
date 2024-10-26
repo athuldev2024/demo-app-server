@@ -93,3 +93,71 @@ body {
 .profile-info div span {
   font-weight: bold;
 }
+
+/* Additional Styling for Profile Section */
+.container {
+  max-width: 600px;
+  margin: 50px auto;
+  background: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.header .btn {
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.header .btn-danger {
+  background-color: #e74c3c;
+  border: 1px solid #c0392b;
+}
+
+.header .btn-primary {
+  background-color: #3498db;
+  border: 1px solid #2980b9;
+}
+
+.header .btn-secondary {
+  background-color: #95a5a6;
+  border: 1px solid #7f8c8d;
+}
+
+.header .btn:hover {
+  opacity: 0.85;
+}
+
+.profile-info {
+  text-align: center;
+  font-size: 16px;
+  color: #333;
+}
+
+.profile-info h2 {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.profile-info .profile-detail {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 15px;
+}
+
+.profile-info .profile-detail .label {
+  font-weight: bold;
+  color: #555;
+}
+
+.profile-info .profile-detail .value {
+  color: #333;
+}

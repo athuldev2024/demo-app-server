@@ -1,15 +1,41 @@
 <div class="container">
   <div class="header">
-    <button id="deleteUser" class="btn">Delete</button>
-    <button id="gotoEditUserPage" class="btn">Edit Page</button>
-    <button id="logoutUser" class="btn">Logout</button>
+    <button id="deleteUser" class="btn btn-danger"><i
+        class="fa-solid fa-trash"
+      ></i></button>
+    <button id="gotoEditUserPage" class="btn btn-primary"><i
+        class="fa-solid fa-pencil"
+      ></i></button>
+    <button id="logoutUser" class="btn btn-secondary"><i
+        class="fa-solid fa-right-from-bracket"
+      ></i></button>
   </div>
+
   <div class="profile-info">
-    <div><span>ID: </span>{{userData.id}}</div>
-    <div><span>Name: </span>{{userData.name}}</div>
-    <div><span>Email: </span>{{userData.email}}</div>
-    <div><span>Mobile: </span>{{userData.mobile}}</div>
-    <div><span>gender: </span>{{userData.gender}}</div>
-    <div><span>DOB: </span>{{userData.dob}}</div>
+    <h2>User Profile</h2>
+    <div class="profile-detail">
+      <span class="label">ID:</span>
+      <span id="userId" class="value">{{userData.id}}</span>
+    </div>
+    <div class="profile-detail">
+      <span class="label">Name:</span>
+      <span id="userName" class="value">{{userData.name}}</span>
+    </div>
+    <div class="profile-detail">
+      <span class="label">Email:</span>
+      <span id="userEmail" class="value">{{userData.email}}</span>
+    </div>
+    <div class="profile-detail">
+      <span class="label">Mobile:</span>
+      <span id="userMobile" class="value">{{userData.mobile}}</span>
+    </div>
+    <div class="profile-detail">
+      <span class="label">Gender:</span>
+      <span id="userGender" class="value">{{userData.gender}}</span>
+    </div>
+    <div class="profile-detail">
+      <span class="label">DOB:</span>
+      <span id="userDob" class="value">{{userData.dob}}</span>
+    </div>
   </div>
 </div>

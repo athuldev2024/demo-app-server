@@ -1,6 +1,7 @@
 # demo-app-server
 
 A simple demo REST API server for educational purpose.
+Simple HBS handlebar is also given as an add on. 
 
 
 ## Installation

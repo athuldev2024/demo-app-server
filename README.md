@@ -9,9 +9,11 @@ http://localhost:3000/api-docs/
 
 ## Installation
 
-1. Without docker
+Installing (non-docker)
 
-npm install
+```bash
+npm run test
+```
 
 ### Prerequisites
 

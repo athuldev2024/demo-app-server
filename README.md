@@ -47,5 +47,3 @@ npm run test
 ## See in browser (handlebar)
 
 http://localhost:3000/hbs/login
-
-![alt text](public/images/login-page.png)

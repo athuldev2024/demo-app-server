@@ -15,7 +15,6 @@ http://localhost:3000/api-docs/
 
 - [Node.js](https://nodejs.org/) (version 20.18.0)
 - [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
-- [Docker](https://www.docker.com/)
 
 ### Check if unit tests passing
 
@@ -25,7 +24,7 @@ Run unit tests, coverage is also shown in terminal.
 npm run test
 ```
 
-### Steps for starting the node server without docker
+### Steps for starting the node server
 
 1. Clone the repository:
 

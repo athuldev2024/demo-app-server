@@ -1,8 +1,11 @@
 # demo-app-server
 
 A simple demo REST API server for educational purpose.
-Simple HBS handlebar is also given as an add on. 
+Simple HBS handlebar is also given as an add on.
 
+## API documentation
+
+http://localhost:3000/api-docs/
 
 ## Installation
 
@@ -16,20 +19,25 @@ npm install
 - [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
 - [Docker](https://www.docker.com/)
 
-### Steps
+### Check if unit tests passing
+
+Run unit tests, coverage is also shown in terminal.
+
+```bash
+npm run test
+```
+
+### Steps for starting the node server without docker
 
 1. Clone the repository:
 
    ```bash
    git clone https://github.com/athuldev2024/demo-app-server.git
    cd demo-app-server
+   ```
 
-2. Run without docker
+2. Start the server
 
-    ```bash
-    npm run start
-
-3. Run unit tests
-
-    ```bash
-    npm run test
+   ```bash
+   npm run start
+   ```

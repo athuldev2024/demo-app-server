@@ -25,6 +25,8 @@ const router = Router();
  * @swagger
  * /users/register:
  *   post:
+ *     tags:
+ *        - User
  *     summary: Register a new user
  *     description: Registers a new user in the system.
  *     requestBody:
@@ -79,6 +81,8 @@ router.post(
  * @swagger
  * /users/login:
  *   post:
+ *     tags:
+ *        - User
  *     summary: Login user
  *     description: User login by checking in the system.
  *     requestBody:
@@ -119,6 +123,8 @@ router.post(
  * @swagger
  * /users/logout:
  *   get:
+ *     tags:
+ *        - User
  *     summary: Logout user
  *     description: User logout in the system.
  *     responses:
@@ -135,6 +141,8 @@ router.use(isAuthenticated);
  * @swagger
  * /users/update/{userID}:
  *   patch:
+ *     tags:
+ *        - User
  *     summary: Update user
  *     description: Update user in the system.
  *     parameters:
@@ -198,6 +206,8 @@ router.patch(
  * @swagger
  * /users/delete/{userID}:
  *   delete:
+ *     tags:
+ *        - User
  *     summary: Delete user
  *     description: Delete user in the system.
  *     parameters:

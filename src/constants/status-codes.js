@@ -7,6 +7,7 @@ const STATUS_CODES = {
   unAuthenticated: 401,
   badRequest: 400,
   noContent: 204,
+  messageAdded: 201,
 };
 
 module.exports = STATUS_CODES;

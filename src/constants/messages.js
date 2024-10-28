@@ -8,6 +8,7 @@ const MESSAGES = {
   unAuthenticated: "Authentication failed",
   deleted: "User deleted",
   updated: "User updated",
+  messageAdded: "New message has been added to DB",
 };
 
 module.exports = MESSAGES;

@@ -9,6 +9,7 @@ const swaggerDocs = require("./swagger");
 
 const indexRouter = require("./src/routes/index");
 const usersRouter = require("./src/routes/user-routes");
+const messageRouter = require("./src/routes/message-routes");
 
 const { setupDB } = require("./src/models");
 
@@ -43,9 +44,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "handlebars/public")));
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-
 app.use("/hbs", indexRouter);
 app.use("/users", usersRouter);
+app.use("/message", messageRouter);
 
 // Setup for database
 (async function () {

@@ -68,6 +68,26 @@ const mobile = {
   trim: true,
 };
 
+const identifier = {
+  notEmpty: {
+    errorMessage: "ID cannot be empty",
+  },
+  isString: {
+    errorMessage: "ID must be a string",
+  },
+  trim: true,
+};
+
+const message = {
+  notEmpty: {
+    errorMessage: "Message cannot be empty",
+  },
+  isString: {
+    errorMessage: "message must be a string",
+  },
+  trim: true,
+};
+
 const registerValidationSchema = checkSchema({
   name,
   password,
@@ -91,8 +111,15 @@ const loginValidationSchema = checkSchema({
   password,
 });
 
+const messageValidationSchema = checkSchema({
+  sender: { ...identifier },
+  receiver: { ...identifier },
+  message,
+});
+
 module.exports = {
   registerValidationSchema,
   updateValidationSchema,
   loginValidationSchema,
+  messageValidationSchema,
 };

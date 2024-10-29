@@ -160,14 +160,6 @@ async function retriveUserDB(userID) {
       throw createError(STATUS_CODES.noResource, MESSAGES.noResource);
     }
 
-    return { id, name, mobile, email, dob, gender, password };
-  } catch (err) {
-    throw createError(err.statusCode, err.message);
-  }
-}
-
-async function retriveOtherUsersDB(userID) {
-  try {
     const otherUsers = await UserSchema.findAll({
       where: {
         id: {
@@ -176,7 +168,7 @@ async function retriveOtherUsersDB(userID) {
       },
     });
 
-    return otherUsers;
+    return { id, name, mobile, email, dob, gender, password, otherUsers };
   } catch (err) {
     throw createError(err.statusCode, err.message);
   }
@@ -189,5 +181,4 @@ module.exports = {
   deleteUserDB,
   updateUserDB,
   retriveUserDB,
-  retriveOtherUsersDB,
 };

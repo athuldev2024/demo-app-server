@@ -1,4 +1,4 @@
-const { DataTypes } = require("sequelize");
+const { DataTypes, Op } = require("sequelize");
 const { customAlphabet } = require("nanoid");
 const bcrypt = require("bcrypt");
 const createError = require("http-errors");

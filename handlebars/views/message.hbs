@@ -1,0 +1,14 @@
+<div id="chat-container">
+  <div id="messages">
+    {{#each allMessages}}
+      <div class="message" style="background-color: {{bgColor}}">
+        <p>{{message}}</p>
+        <i class="fa-solid fa-trash" onclick="deleteMessage({{id}})"></i></div>
+    {{/each}}
+  </div>
+
+  <div id="input-container">
+    <input type="text" id="message-input" placeholder="Type a message..." />
+    <button onclick="sendMessage()">Send</button>
+  </div>
+</div>

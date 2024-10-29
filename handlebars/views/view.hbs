@@ -45,7 +45,7 @@
         <th>email</th>
       </tr>
       {{#each userData.otherUsers}}
-        <tr class="otherUser" onclick="selectOtherUser({{dataValues.id}})">
+        <tr class="otherUser" onclick="selectOtherUser('{{dataValues.id}}')">
           <td>{{dataValues.id}}</td>
           <td>{{dataValues.name}}</td>
           <td>{{dataValues.email}}</td>

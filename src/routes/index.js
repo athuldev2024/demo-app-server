@@ -1,11 +1,10 @@
 var express = require("express");
 var router = express.Router();
-const JSONdb = require("simple-json-db");
 const { param } = require("express-validator");
 const createError = require("http-errors");
 
 const { retriveUserDB } = require("../models/user-model");
-const { isAuthenticated } = require("../middleware/auth-middleware");
+const { getAllMessagesDB } = require("../models/message-model");
 const { checkRequestValidation } = require("../middleware/error-middleware");
 
 router.get("/register", function (req, res) {
@@ -54,6 +53,31 @@ router.get(
       };
 
       return res.render("edit", { title: "update user", userData });
+    } catch (error) {
+      console.log("Error: ", error);
+      next(createError(error.statusCode, error.message));
+    }
+  }
+);
+
+router.get(
+  "/message/:userID/:otherUserID",
+  [
+    param("userID").isString().notEmpty(),
+    param("otherUserID").isString().notEmpty(),
+  ],
+  checkRequestValidation,
+  async function (req, res, next) {
+    try {
+      const allMessages = await getAllMessagesDB(
+        req.params.userID,
+        req.params.otherUserID
+      );
+
+      return res.render("message", {
+        title: "See all messages",
+        allMessages,
+      });
     } catch (error) {
       console.log("Error: ", error);
       next(createError(error.statusCode, error.message));

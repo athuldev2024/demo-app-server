@@ -90,8 +90,44 @@ async function updateMessageDB(message, messageID) {
   }
 }
 
+async function getAllMessagesDB(userID, otherUserID) {
+  try {
+    const myMessages = await MessageSchema.findAll({
+      attributes: ["id", "sender", "receiver", "message"],
+      where: {
+        sender: userID,
+        receiver: otherUserID,
+      },
+    });
+
+    const otherMessages = await MessageSchema.findAll({
+      attributes: ["id", "sender", "receiver", "message"],
+      where: {
+        sender: otherUserID,
+        receiver: userID,
+      },
+    });
+
+    const allMessages = [
+      ...myMessages.map((item) => {
+        return { ...item.dataValues, bgColor: "aqua" };
+      }),
+      ...otherMessages.map((item) => {
+        return { ...item.dataValues, bgColor: "green" };
+      }),
+    ].sort(function (itemOne, itemTwo) {
+      return itemOne.updatedAt - itemTwo.updatedAt;
+    });
+
+    return allMessages;
+  } catch (err) {
+    throw createError(err.statusCode, err.message);
+  }
+}
+
 module.exports = {
   storeMessageToDB,
   deleteMessageDB,
   updateMessageDB,
+  getAllMessagesDB,
 };

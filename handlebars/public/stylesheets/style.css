@@ -201,3 +201,48 @@ p {
   background-color: #04aa6d;
   color: white;
 }
+
+/* Chat application web  */
+#chat-container {
+  width: 900px;
+  max-width: 100%;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+#messages {
+  height: 300px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 4px;
+}
+.message {
+  padding: 8px;
+  margin: 4px 0;
+  border-radius: 4px;
+}
+#input-container {
+  display: flex;
+}
+#input-container input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-right: 4px;
+}
+#input-container button {
+  padding: 8px 12px;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+#input-container button:hover {
+  background-color: #0056b3;
+}

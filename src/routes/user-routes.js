@@ -6,7 +6,6 @@ const {
   deleteUser,
   updateUser,
   logoutUser,
-  getOtherUsers,
 } = require("../controllers/user-controller");
 const {
   checkRequestValidation,

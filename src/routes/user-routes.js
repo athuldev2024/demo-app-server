@@ -6,6 +6,7 @@ const {
   deleteUser,
   updateUser,
   logoutUser,
+  getOtherUsers,
 } = require("../controllers/user-controller");
 const {
   checkRequestValidation,
@@ -233,6 +234,37 @@ router.delete(
   [param("userID").isString().notEmpty()],
   checkRequestValidation,
   (req, res, next) => deleteUser(req, res, next)
+);
+
+/**
+ * @swagger
+ * /users/others/{userID}:
+ *   get:
+ *     tags:
+ *        - User
+ *     summary: Get other users
+ *     description: get other users in the system expect me.
+ *     parameters:
+ *       - in: path
+ *         name: userID
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The unique ID of the user.
+ *         example: "848692338156185698"
+ *     responses:
+ *       200:
+ *         description: User updated successfully.
+ *       400:
+ *         description: Bad request.
+ *       500:
+ *         description: Internal server error.
+ */
+router.get(
+  "/others/:userID",
+  [param("userID").isString().notEmpty()],
+  checkRequestValidation,
+  (req, res, next) => getOtherUsers(req, res, next)
 );
 
 router.use((error, req, res, next) =>

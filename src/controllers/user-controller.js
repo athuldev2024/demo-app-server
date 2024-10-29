@@ -9,6 +9,7 @@ const {
   loginUserDB,
   deleteUserDB,
   updateUserDB,
+  retriveOtherUsersDB,
 } = require("../models/user-model");
 
 const registerUser = async (req, res, next) => {
@@ -98,10 +99,23 @@ const updateUser = async (req, res, next) => {
   }
 };
 
+const getOtherUsers = async (req, res, next) => {
+  try {
+    const otherUsers = await retriveOtherUsersDB(req.params.userID);
+
+    return res
+      .status(STATUS_CODES.success)
+      .json({ message: MESSAGES.loginSuccess, otherUsers });
+  } catch (error) {
+    next(createError(error.statusCode, error.message));
+  }
+};
+
 module.exports = {
   registerUser,
   loginUser,
   deleteUser,
   updateUser,
   logoutUser,
+  getOtherUsers,
 };

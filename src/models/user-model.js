@@ -166,6 +166,22 @@ async function retriveUserDB(userID) {
   }
 }
 
+async function retriveOtherUsersDB(userID) {
+  try {
+    const otherUsers = await UserSchema.findAll({
+      where: {
+        id: {
+          [Op.ne]: userID,
+        },
+      },
+    });
+
+    return otherUsers;
+  } catch (err) {
+    throw createError(err.statusCode, err.message);
+  }
+}
+
 module.exports = {
   checkIfExistsInDB,
   storeUserToDB,
@@ -173,4 +189,5 @@ module.exports = {
   deleteUserDB,
   updateUserDB,
   retriveUserDB,
+  retriveOtherUsersDB,
 };

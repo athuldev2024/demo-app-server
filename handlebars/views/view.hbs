@@ -37,5 +37,21 @@
       <span class="label">DOB:</span>
       <span id="userDob" class="value">{{userData.dob}}</span>
     </div>
+
+    <table id="other-users">
+      <tr>
+        <th>ID</th>
+        <th>name</th>
+        <th>email</th>
+      </tr>
+      {{#each userData.otherUsers}}
+        <tr class="otherUser" onclick="selectOtherUser({{dataValues.id}})">
+          <td>{{dataValues.id}}</td>
+          <td>{{dataValues.name}}</td>
+          <td>{{dataValues.email}}</td>
+        </tr>
+      {{/each}}
+    </table>
+
   </div>
 </div>

@@ -161,6 +161,7 @@ async function retriveUserDB(userID) {
     }
 
     const otherUsers = await UserSchema.findAll({
+      attributes: ["id", "name", "email"],
       where: {
         id: {
           [Op.ne]: userID,

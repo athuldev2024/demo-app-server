@@ -254,7 +254,7 @@ router.delete(
  *         example: "848692338156185698"
  *     responses:
  *       200:
- *         description: User updated successfully.
+ *         description: Got other users with success.
  *       400:
  *         description: Bad request.
  *       500:

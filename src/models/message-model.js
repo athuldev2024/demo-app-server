@@ -116,7 +116,10 @@ async function getAllMessagesDB(userID, otherUserID) {
         return { ...item.dataValues, bgColor: "green" };
       }),
     ].sort(function (itemOne, itemTwo) {
-      return itemOne.updatedAt - itemTwo.updatedAt;
+      return (
+        new Date(itemOne.updatedAt).getTime() -
+        new Date(itemTwo.updatedAt).getTime()
+      );
     });
 
     return allMessages;

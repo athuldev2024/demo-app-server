@@ -34,9 +34,22 @@ async function sendMessage() {
 }
 
 // eslint-disable-next-line no-unused-vars
-async function deleteMessage(id) {
+async function deleteMessage(messageID) {
   try {
-    console.log("Identifier: ", id);
+    const res = await fetch(`${MESSAGE_URL}/delete/${messageID}`, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      method: "DELETE",
+      body: JSON.stringify({}),
+    });
+
+    if (res.status === 204) {
+      alert("Message deleted!!");
+    } else {
+      throw Error("Error occured while registering!!");
+    }
   } catch (error) {
     alert(error?.message);
   }

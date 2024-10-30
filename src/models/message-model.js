@@ -1,4 +1,4 @@
-const { DataTypes } = require("sequelize");
+const { DataTypes, Op } = require("sequelize");
 const { customAlphabet } = require("nanoid");
 const createError = require("http-errors");
 const { sequelize } = require("./index");
@@ -92,37 +92,26 @@ async function updateMessageDB(message, messageID) {
 
 async function getAllMessagesDB(userID, otherUserID) {
   try {
-    const myMessages = await MessageSchema.findAll({
+    const allMessages = await MessageSchema.findAll({
       attributes: ["id", "sender", "receiver", "message"],
       where: {
-        sender: userID,
-        receiver: otherUserID,
+        sender: {
+          [Op.or]: [userID, otherUserID],
+        },
+        receiver: {
+          [Op.or]: [userID, otherUserID],
+        },
       },
     });
 
-    const otherMessages = await MessageSchema.findAll({
-      attributes: ["id", "sender", "receiver", "message"],
-      where: {
-        sender: otherUserID,
-        receiver: userID,
-      },
+    const allMessagesProcessed = allMessages.map((item) => {
+      return {
+        ...item.dataValues,
+        bgColor: item.dataValues.sender === userID ? "aqua" : "lightgreen",
+      };
     });
 
-    const allMessages = [
-      ...myMessages.map((item) => {
-        return { ...item.dataValues, bgColor: "aqua" };
-      }),
-      ...otherMessages.map((item) => {
-        return { ...item.dataValues, bgColor: "green" };
-      }),
-    ].sort(function (itemOne, itemTwo) {
-      return (
-        new Date(itemOne.updatedAt).getTime() -
-        new Date(itemTwo.updatedAt).getTime()
-      );
-    });
-
-    return allMessages;
+    return allMessagesProcessed;
   } catch (err) {
     throw createError(err.statusCode, err.message);
   }

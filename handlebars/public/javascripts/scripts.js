@@ -242,3 +242,10 @@ function gotoEditUserPage() {
 function goToLoginPage() {
   window.location.href = `${NAV_URL}/login`;
 }
+
+// eslint-disable-next-line no-unused-vars
+function selectOtherUser(otherUserID) {
+  const userID = localStorage.getItem("userID");
+  localStorage.setItem("otherUserID", otherUserID);
+  window.location.href = `${NAV_URL}/message/${userID}/${otherUserID}`;
+}

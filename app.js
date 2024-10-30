@@ -21,6 +21,9 @@ app.set("view engine", "hbs");
 hbs.registerHelper("eq", function (a, b) {
   return a === b;
 });
+hbs.registerHelper("json", function (context) {
+  return JSON.stringify(context);
+});
 
 app.use(
   session({

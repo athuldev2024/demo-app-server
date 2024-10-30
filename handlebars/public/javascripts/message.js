@@ -24,6 +24,7 @@ async function sendMessage() {
     });
 
     if (res.status === 201) {
+      document.getElementById("message-input").value = "";
       console.log("Message added!!");
     } else {
       throw Error("Error occured while registering!!");
@@ -53,4 +54,11 @@ async function deleteMessage(messageID) {
   } catch (error) {
     alert(error?.message);
   }
+}
+
+// eslint-disable-next-line no-unused-vars
+function goBackToViewPageFromMessage() {
+  const NAV_URL = "http://localhost:3000/hbs";
+  const userID = localStorage.getItem("userID");
+  window.location.href = `${NAV_URL}/view/${userID}`;
 }

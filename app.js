@@ -7,7 +7,7 @@ const swaggerUi = require("swagger-ui-express");
 const hbs = require("hbs");
 const swaggerDocs = require("./swagger");
 
-const indexRouter = require("./src/routes/index");
+const hbsRouter = require("./src/routes/hbs-routes");
 const usersRouter = require("./src/routes/user-routes");
 const messageRouter = require("./src/routes/message-routes");
 
@@ -47,7 +47,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "handlebars/public")));
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-app.use("/hbs", indexRouter);
+app.use("/hbs", hbsRouter);
 app.use("/users", usersRouter);
 app.use("/message", messageRouter);
 

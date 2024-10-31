@@ -224,6 +224,7 @@ p {
   padding: 8px;
   margin: 4px 0;
   border-radius: 4px;
+  width: 300px;
 }
 #input-container {
   display: flex;

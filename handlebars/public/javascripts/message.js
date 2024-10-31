@@ -1,11 +1,45 @@
 const MESSAGE_URL = "http://localhost:3000/message";
 
-// eslint-disable-next-line no-unused-vars
-function selectOtherUser(otherUserID) {
+let inc = 0,
+  socket;
+
+// document.getElementById("messages") &&
+//   document.getElementById("messages-template") &&
+//   renderMessages &&
+//   renderMessages();
+
+(function () {
   const userID = localStorage.getItem("userID");
-  localStorage.setItem("otherUserID", otherUserID);
-  window.location.href = `${NAV_URL}/message/${userID}/${otherUserID}`;
-}
+  socket = io("http://localhost:3000", {
+    transports: ["websocket"],
+  });
+
+  socket.on("connect", () => {
+    socket.emit("registerUser", userID);
+    renderMessages && renderMessages();
+  });
+
+  socket.on("receiveMessage", (messageObj) => {
+    allMessages.push({
+      id: ++inc,
+      ...messageObj,
+      bgColor: messageObj.sender === userID ? "aqua" : "lightgreen",
+    });
+  });
+})();
+
+const renderMessages = () => {
+  try {
+    const templateSource =
+      document.getElementById("messages-template").innerHTML;
+    const template = Handlebars.compile(templateSource);
+    const messagesContainer = document.getElementById("messages");
+    console.log("allMessages ======> ", allMessages);
+    messagesContainer.innerHTML = template({ allMessages });
+  } catch (error) {
+    console.log("Error: ", error);
+  }
+};
 
 // eslint-disable-next-line no-unused-vars
 async function sendMessage() {
@@ -26,10 +60,20 @@ async function sendMessage() {
     if (res.status === 201) {
       document.getElementById("message-input").value = "";
       console.log("Message added!!");
+
+      socket.emit("multicastMessage", {
+        messageObj: {
+          sender: userID,
+          receiver: otherUserID,
+          message,
+        },
+        userIds: [userID, otherUserID],
+      });
     } else {
       throw Error("Error occured while registering!!");
     }
   } catch (error) {
+    console.log("Error: ", error);
     alert(error?.message);
   }
 }
@@ -47,7 +91,14 @@ async function deleteMessage(messageID) {
     });
 
     if (res.status === 204) {
+      const removeIndex = allMessages.findIndex(
+        (item) => item.id === messageID
+      );
+      allMessages.splice(removeIndex, 1);
+
       alert("Message deleted!!");
+
+      renderMessages();
     } else {
       throw Error("Error occured while registering!!");
     }

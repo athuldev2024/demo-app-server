@@ -4,14 +4,22 @@
       onclick="goBackToViewPageFromMessage()"
     ></i></button>
   <div id="messages">
-    {{#each allMessages}}
+    {{!-- {{#each allMessages}}
       <div class="message" style="background-color: {{bgColor}}">
         <p>{{message}}</p>
         <i
           class="fa-solid fa-trash"
           onclick="deleteMessage('{{id}}')"
         ></i></div>
-    {{/each}}
+    {{/each}} --}}
+
+    <script id="messages-template" type="text/x-handlebars-template">
+      {{#each allMessages}}
+        <div class="message" style="background-color:
+        {{bgColor}}"> <p>{{message}}</p> <i class="fa-solid fa-trash"
+        onclick="deleteMessage('{{id}}')"></i> </div>
+      {{/each}}
+    </script>
   </div>
 
   <div id="input-container">
@@ -19,3 +27,13 @@
     <button onclick="sendMessage()">Send</button>
   </div>
 </div>
+
+<!-- Load Socket.io client library first -->
+<script src="/socket.io/socket.io.js"></script>
+
+<script src="/javascripts/message.js"></script>
+
+<script>
+  window.allMessages =
+  {{{json allMessages}}};
+</script>

@@ -77,6 +77,7 @@ router.get(
       return res.render("message", {
         title: "See all messages",
         allMessages,
+        tempMessages: [],
       });
     } catch (error) {
       console.log("Error: ", error);

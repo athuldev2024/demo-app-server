@@ -108,6 +108,8 @@ async function getAllMessagesDB(userID, otherUserID) {
       return {
         ...item.dataValues,
         bgColor: item.dataValues.sender === userID ? "aqua" : "lightgreen",
+        alignSelf:
+          item.dataValues.sender === userID ? "flex-start" : "flex-end",
       };
     });
 

@@ -101,24 +101,30 @@ const io = new Server(server, {
 });
 let users = new Map();
 io.on('connection', (socket) => {
-  console.log("++++++++++++++++++++++++++++++++++++++++");
-  console.log(`Connection set`);
-
   socket.on('registerUser', (userId) => {
       users.set(userId, socket.id);
       console.log(`User registered: ${userId} with socket ID: ${socket.id}`);
-      console.log("++++++++++++++++++++++++++++++++++++++++");
   });
 
   socket.on('multicastMessage', (data) => {
       const { messageObj, userIds } = data;
-      console.log(`Multicasting message to user IDs: ${userIds.join(', ')}`);
       userIds.forEach((userId) => {
           const targetSocketId = users.get(userId);
           if (targetSocketId) {
               io.to(targetSocketId).emit('receiveMessage', messageObj);
           }
       });
+  });
+
+  socket.on('changemade', (data) => {
+    const {  userIds } = data;
+
+    userIds.forEach((userId) => {
+        const targetSocketId = users.get(userId);
+        if (targetSocketId) {
+            io.to(targetSocketId).emit('reload');
+        }
+    });
   });
 
   socket.on('disconnect', () => {

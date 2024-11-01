@@ -12,6 +12,10 @@ document.addEventListener("DOMContentLoaded", () => {
     socket.emit("registerUser", userID);
   });
 
+  socket.on("reload", () => {
+    location.reload();
+  });
+
   socket.on("receiveMessage", (messageObj) => {
     tempMessages.push({
       ...messageObj,
@@ -88,6 +92,8 @@ async function sendMessage() {
 // eslint-disable-next-line no-unused-vars
 async function deleteMessage(messageID) {
   try {
+    const userID = localStorage.getItem("userID");
+    const otherUserID = localStorage.getItem("otherUserID");
     const res = await fetch(`${MESSAGE_URL}/delete/${messageID}`, {
       headers: {
         Accept: "application/json",
@@ -98,8 +104,9 @@ async function deleteMessage(messageID) {
     });
 
     if (res.status === 204) {
-      alert("Message deleted!!");
-      location.reload();
+      socket.emit("changemade", {
+        userIds: [userID, otherUserID],
+      });
     } else {
       throw Error("Error occured while registering!!");
     }

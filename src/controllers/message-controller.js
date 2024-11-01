@@ -5,7 +5,6 @@ const MESSAGES = require("../constants/messages");
 const {
   storeMessageToDB,
   deleteMessageDB,
-  updateMessageDB,
 } = require("../models/message-model");
 
 const storeMessage = async (req, res, next) => {
@@ -32,20 +31,7 @@ const deleteMessage = async (req, res, next) => {
   }
 };
 
-const updateMessage = async (req, res, next) => {
-  try {
-    await updateMessageDB(req.body.message, req.params.messageID);
-
-    return res
-      .status(STATUS_CODES.noContent)
-      .json({ message: MESSAGES.updated });
-  } catch (error) {
-    next(createError(error.statusCode, error.message));
-  }
-};
-
 module.exports = {
   storeMessage,
   deleteMessage,
-  updateMessage,
 };

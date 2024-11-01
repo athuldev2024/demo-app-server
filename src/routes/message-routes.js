@@ -1,10 +1,9 @@
 const { Router } = require("express");
-const { param, body } = require("express-validator");
+const { param } = require("express-validator");
 
 const {
   storeMessage,
   deleteMessage,
-  updateMessage,
 } = require("../controllers/message-controller");
 const { messageValidationSchema } = require("../utils/validation-util");
 
@@ -92,51 +91,6 @@ router.delete(
   [param("messageID").isString().notEmpty()],
   checkRequestValidation,
   (req, res, next) => deleteMessage(req, res, next)
-);
-
-/**
- * @swagger
- * /message/update/{messageID}:
- *   patch:
- *     tags:
- *        - Message
- *     summary: Update message
- *     description: Update message in the system.
- *     parameters:
- *       - in: path
- *         name: messageID
- *         required: true
- *         schema:
- *           type: string
- *         description: The unique ID of the user.
- *         example: "848692338156185698"
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               message:
- *                 type: string
- *                 description: Message from user.
- *                 example: "Hi john"
- *     responses:
- *       204:
- *         description: User updated successfully.
- *       404:
- *         description: User does not exists.
- *       400:
- *         description: Bad request.
- *       500:
- *         description: Internal server error.
- */
-router.patch(
-  "/update/:messageID",
-  [param("messageID").isString().notEmpty()],
-  [body("message").isString().notEmpty()],
-  checkRequestValidation,
-  (req, res, next) => updateMessage(req, res, next)
 );
 
 router.use((error, req, res, next) =>

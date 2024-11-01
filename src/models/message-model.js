@@ -69,27 +69,6 @@ async function deleteMessageDB(messageID) {
   }
 }
 
-async function updateMessageDB(message, messageID) {
-  try {
-    const result = await MessageSchema.update(
-      { message },
-      {
-        where: {
-          id: messageID,
-        },
-      }
-    );
-
-    if (result[0] === 0) {
-      throw createError(STATUS_CODES.noResource, MESSAGES.noResource);
-    }
-
-    return true;
-  } catch (err) {
-    throw createError(err.statusCode, err.message);
-  }
-}
-
 async function getAllMessagesDB(userID, otherUserID) {
   try {
     const allMessages = await MessageSchema.findAll({
@@ -122,6 +101,5 @@ async function getAllMessagesDB(userID, otherUserID) {
 module.exports = {
   storeMessageToDB,
   deleteMessageDB,
-  updateMessageDB,
   getAllMessagesDB,
 };

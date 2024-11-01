@@ -116,7 +116,7 @@ io.on('connection', (socket) => {
       });
   });
 
-  socket.on('changemade', (data) => {
+  socket.on('delete', (data) => {
     const {  userIds } = data;
 
     userIds.forEach((userId) => {

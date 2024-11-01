@@ -104,7 +104,7 @@ async function deleteMessage(messageID) {
     });
 
     if (res.status === 204) {
-      socket.emit("changemade", {
+      socket.emit("delete", {
         userIds: [userID, otherUserID],
       });
     } else {

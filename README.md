@@ -1,6 +1,6 @@
 # demo-app-server
 
-A simple demo server for a chat application whcih uses REST api as well socket.io.
+A simple demo server for a chat application made using REST api as well socket.io.
 
 ## API documentation
 

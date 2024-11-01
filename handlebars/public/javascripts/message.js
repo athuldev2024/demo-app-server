@@ -1,44 +1,45 @@
+const LOCALHOST_URL = "http://localhost:3000";
 const MESSAGE_URL = "http://localhost:3000/message";
 
-let inc = 0,
-  socket;
+let socket;
+let tempMessages = [];
 
-// document.getElementById("messages") &&
-//   document.getElementById("messages-template") &&
-//   renderMessages &&
-//   renderMessages();
-
-(function () {
+document.addEventListener("DOMContentLoaded", () => {
   const userID = localStorage.getItem("userID");
-  socket = io("http://localhost:3000", {
-    transports: ["websocket"],
-  });
+  socket = io(LOCALHOST_URL, { transports: ["websocket"] });
 
   socket.on("connect", () => {
     socket.emit("registerUser", userID);
-    renderMessages && renderMessages();
   });
 
   socket.on("receiveMessage", (messageObj) => {
-    allMessages.push({
-      id: ++inc,
+    tempMessages.push({
       ...messageObj,
       bgColor: messageObj.sender === userID ? "aqua" : "lightgreen",
+      alignSelf: messageObj.sender === userID ? "flex-end" : "flex-start",
     });
+    renderMessages();
   });
-})();
+
+  renderMessages();
+});
+
+const templateSource = `
+  {{#each tempMessages}}
+    <div class="message-div">
+      <div class="message" style="background-color: {{bgColor}};align-self: {{alignSelf}};">
+        <p>{{message}}</p>
+        <i class="fa-solid fa-trash" onclick="deleteMessage('{{id}}')"></i>
+      </div>
+    </div>
+  {{/each}}
+`;
+const template = Handlebars.compile(templateSource);
 
 const renderMessages = () => {
-  try {
-    const templateSource =
-      document.getElementById("messages-template").innerHTML;
-    const template = Handlebars.compile(templateSource);
-    const messagesContainer = document.getElementById("messages");
-    console.log("allMessages ======> ", allMessages);
-    messagesContainer.innerHTML = template({ allMessages });
-  } catch (error) {
-    console.log("Error: ", error);
-  }
+  console.log("++++++ Render messages +++++");
+  const html = template({ tempMessages });
+  document.getElementById("message-container").innerHTML = html;
 };
 
 // eslint-disable-next-line no-unused-vars
@@ -47,6 +48,11 @@ async function sendMessage() {
     const userID = localStorage.getItem("userID");
     const otherUserID = localStorage.getItem("otherUserID");
     const message = document.getElementById("message-input").value;
+
+    if (!message) {
+      alert("Please enter valid message!!");
+      return;
+    }
 
     const res = await fetch(`${MESSAGE_URL}/ping`, {
       headers: {
@@ -59,10 +65,11 @@ async function sendMessage() {
 
     if (res.status === 201) {
       document.getElementById("message-input").value = "";
-      console.log("Message added!!");
 
+      const resJson = await res.json();
       socket.emit("multicastMessage", {
         messageObj: {
+          id: resJson.messageID,
           sender: userID,
           receiver: otherUserID,
           message,
@@ -91,14 +98,8 @@ async function deleteMessage(messageID) {
     });
 
     if (res.status === 204) {
-      const removeIndex = allMessages.findIndex(
-        (item) => item.id === messageID
-      );
-      allMessages.splice(removeIndex, 1);
-
       alert("Message deleted!!");
-
-      renderMessages();
+      location.reload();
     } else {
       throw Error("Error occured while registering!!");
     }
@@ -109,7 +110,7 @@ async function deleteMessage(messageID) {
 
 // eslint-disable-next-line no-unused-vars
 function goBackToViewPageFromMessage() {
-  const NAV_URL = "http://localhost:3000/hbs";
+  const NAV_URL = `${LOCALHOST_URL}/hbs`;
   const userID = localStorage.getItem("userID");
   window.location.href = `${NAV_URL}/view/${userID}`;
 }

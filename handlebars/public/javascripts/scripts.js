@@ -51,10 +51,7 @@ async function loginUser(event) {
       });
 
       if (res.status === 200) {
-        console.log("I have reacjhed her!!");
-        console.log(res);
         const resJson = await res.json();
-        console.log("resJson.userID=> ", resJson.userID);
         localStorage.setItem("userID", resJson.userID);
         window.location.href = `${NAV_URL}/view/${resJson.userID}`;
       } else if (res.status === 404) {
@@ -234,6 +231,9 @@ async function deleteUser() {
 }
 
 // Navigation to other pages
+// - Goto edit page
+// - Goto login page
+// - Goto message page
 function gotoEditUserPage() {
   const userID = localStorage.getItem("userID");
   window.location.href = `${NAV_URL}/edit/${userID}`;

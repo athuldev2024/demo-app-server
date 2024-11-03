@@ -13,6 +13,10 @@ RUN npm install
 # Copy the rest of the application code
 COPY . .
 
+# Set permissions for the public directory
+RUN chmod -R 755 /usr/src/app/handlebars/public
+
+
 # Expose the application port
 EXPOSE 3000
 

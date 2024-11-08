@@ -17,7 +17,7 @@ http://localhost:3000/api-docs/
 
 ### Check if unit tests passing
 
-Run unit tests, coverage is also shown in terminal.
+Run unit tests, coverage is also shown in terminal. Unit testing is done for controllers and constants folder.
 
 ```bash
 npm run test

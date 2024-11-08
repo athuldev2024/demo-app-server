@@ -132,3 +132,5 @@ dist
 #database and cache file
 src/database/*
 src/cache/*
+# stryker temp files
+.stryker-tmp

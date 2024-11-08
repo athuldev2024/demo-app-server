@@ -17,10 +17,18 @@ http://localhost:3000/api-docs/
 
 ### Check if unit tests passing
 
-Run unit tests, coverage is also shown in terminal. Unit testing is done for controllers and constants folder.
+Run unit tests. Unit testing is done for controllers and constants folder.
 
 ```bash
 npm run test
+```
+
+### Run mutation tests to check quality of unit tests.
+
+Run mutation test. Mutation testing is done for controllers and constants folder.
+
+```bash
+npm run stryker
 ```
 
 ### Steps for starting the node server

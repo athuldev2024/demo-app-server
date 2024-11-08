@@ -80,6 +80,10 @@ describe("user-controller", () => {
         name: "John Doe",
       });
       expect(res.status).toHaveBeenCalledWith(STATUS_CODES.userRegistered);
+      expect(res.json).toHaveBeenCalledWith({
+        message: MESSAGES.userRegistered,
+        userID: "newUserID",
+      });
     });
 
     test("should call next with an error if an exception occurs", async () => {
@@ -124,12 +128,20 @@ describe("user-controller", () => {
 
     test("should return 200 if credentials are correct", async () => {
       checkIfExistsInDB.mockResolvedValue(true);
-      loginUserDB.mockResolvedValue(true);
+      loginUserDB.mockResolvedValue("274162874687126487126");
 
       await loginUser(req, res, next);
 
       expect(checkIfExistsInDB).toHaveBeenCalledWith("1234567890");
+      expect(req.session.user).toEqual({
+        userID: "274162874687126487126",
+        name: "John Doe",
+      });
       expect(res.status).toHaveBeenCalledWith(STATUS_CODES.success);
+      expect(res.json).toHaveBeenCalledWith({
+        message: MESSAGES.loginSuccess,
+        userID: "274162874687126487126",
+      });
     });
 
     test("should call next with an error if an exception occurs", async () => {

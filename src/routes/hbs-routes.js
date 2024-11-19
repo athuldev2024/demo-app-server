@@ -23,6 +23,16 @@ router.get(
     try {
       const userData = await retriveUserDB(req.params.userID);
 
+      // Mobile application!!
+      const acceptHeader = req.headers["accept"];
+      if (acceptHeader && acceptHeader.includes("application/json")) {
+        console.log("asdasf");
+        return res.json({
+          title: "View User",
+          userData: userData,
+        });
+      }
+
       return res.render("view", {
         title: "view users",
         userData: userData,

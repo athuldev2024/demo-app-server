@@ -26,7 +26,6 @@ router.get(
       // Mobile application!!
       const acceptHeader = req.headers["accept"];
       if (acceptHeader && acceptHeader.includes("application/json")) {
-        console.log("asdasf");
         return res.json({
           title: "View User",
           userData: userData,
@@ -83,6 +82,16 @@ router.get(
         req.params.userID,
         req.params.otherUserID
       );
+
+      // Mobile application!!
+      const acceptHeader = req.headers["accept"];
+      if (acceptHeader && acceptHeader.includes("application/json")) {
+        return res.json({
+          title: "See all messages",
+          allMessages,
+          tempMessages: [],
+        });
+      }
 
       return res.render("message", {
         title: "See all messages",
